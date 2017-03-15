@@ -39,52 +39,17 @@ Register as service in your config file.
 
 ```yaml
 services:
-    - Minetro\Database\Transaction\Transaction
+    - Contributte\Database\Transaction\Transaction
 ```
 
 On multiple connections you have to specific one.
 
 ```yaml
 services:
-    - Minetro\Database\Transaction\Transaction(@nette.database.one.connection)
+    - Contributte\Database\Transaction\Transaction(@nette.database.one.connection)
     # or
-    - Minetro\Database\Transaction\Transaction(@nette.database.two.connection)
+    - Contributte\Database\Transaction\Transaction(@nette.database.two.connection)
 ```
-
-### Repository | Presenter
-
-```php
-use Minetro\Database\Transaction\Transaction;
-
-class MyRepository {
-
-    function __construct(Connection $connection) {
-        $this->transaction = new Transaction($connection);
-    }
-
-    // OR
-
-    function __construct(Context $context) {
-        $this->transaction = new Transaction($context->getConnection());
-    }
-}
-
-class MyPresenter {
-
-    public function processSomething() {
-        $transaction->transaction(function() {
-            // Save one..
-
-            // Make other..
-
-            // Delete from this..
-
-            // Update everything..
-        });
-    }
-}
-```
-
 
 ### API
 
@@ -181,4 +146,38 @@ $t = new Transaction(new Connection(...));
 $t->onUnresolved[] = function($exception) {
     Tracy\Debugger::log($exception);
 };
+```
+
+### Usage
+
+```php
+use Contributte\Database\Transaction\Transaction;
+
+class MyRepository {
+
+    function __construct(Connection $connection) {
+        $this->transaction = new Transaction($connection);
+    }
+
+    // OR
+
+    function __construct(Context $context) {
+        $this->transaction = new Transaction($context->getConnection());
+    }
+}
+
+class MyPresenter {
+
+    public function processSomething() {
+        $transaction->transaction(function() {
+            // Save one..
+
+            // Make other..
+
+            // Delete from this..
+
+            // Update everything..
+        });
+    }
+}
 ```
