@@ -32,6 +32,12 @@ before_script:
   # Coverage
   - if [[ "$TRAVIS_PHP_VERSION" == "7.1" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
 
+  # Create database    
+  - mysql -e 'CREATE DATABASE mydb;'    
+ 
+  # Import data   
+  - mysql -u root mydb < tests/fixtures/database.sql
+
 script:
   # Quality Assurance
   - travis_retry composer qa
