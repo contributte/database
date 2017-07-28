@@ -6,6 +6,9 @@ use Contributte\Database\Transaction\Transaction;
 use Nette\Database\Connection;
 use Nette\DI\CompilerExtension;
 
+/**
+ * @author Milan Felix Sulc <sulcmil@gmail.com>
+ */
 class TransactionExtension extends CompilerExtension
 {
 
