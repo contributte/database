@@ -14,7 +14,7 @@ Inspired by these articles:
 
 ## Transaction
 
-Provide nested transaction via savepoints.
+Provides nested transaction via savepoints.
 
 **Support**
 
@@ -24,25 +24,25 @@ Provide nested transaction via savepoints.
 
 ### Usage
 
-As each extra functionality you should register this TransactionExtension.
+As with any other extension, you need to register it.
 
 ```yaml
 extensions:
     ntdb: Contributte\Database\DI\TransactionExtension
 ```
 
-That's all. You can let nette\di autowired it to your services/presenters.
+That's all. You can now let `nette\di` autowire it to your services/presenters.
 
 ### NEON
 
-Register as service in your config file.
+Register it as a service in your config file.
 
 ```yaml
 services:
     - Contributte\Database\Transaction\Transaction
 ```
 
-On multiple connections you have to specific one.
+On multiple connections you have to specify which one to use.
 
 ```yaml
 services:
@@ -61,7 +61,7 @@ services:
 
 ### Begin
 
-Starts transaction.
+Starts a transaction.
 
 ```php
 $t = new Transaction(new Connection(...));
@@ -70,7 +70,7 @@ $t->begin();
 
 ### Commit
 
-Commit changes in transaction.
+Commits changes in a transaction.
 
 ```php
 $t = new Transaction(new Connection(...));
@@ -81,7 +81,7 @@ $t->commit();
 
 ### Rollback
 
-Revert changes in transaction.
+Reverts changes in a transaction.
 
 ```php
 $t = new Transaction(new Connection(...));
@@ -97,9 +97,9 @@ try {
 
 ### Transaction
 
-Combine begin, commit and rollback to one method.
+Combines begin, commit and rollback to one method.
 
-On success it commits changes, if exceptions is thrown it rollbacks changes.
+On success it commits changes, if an exception is thrown it rolls back changes.
 
 ```php
 $t = new Transaction(new Connection(...));
@@ -117,7 +117,7 @@ $t->t(function() {
 
 ### Promise
 
-Another attitude to transaction.
+Another approach to transactions.
 
 ```php
 $t = new Transaction(new Connection(...));
@@ -137,7 +137,7 @@ $t->promise()->then(
 
 ### UnresolvedTransactionException
 
-Log unresolved transaction.
+Logs unresolved transaction.
 
 Idea by Ondrej Mirtes (https://ondrej.mirtes.cz/detekce-neuzavrenych-transakci).
 
