@@ -7,10 +7,10 @@
 [![Build Status](https://img.shields.io/travis/contributte/database.svg?style=flat-square)](https://travis-ci.org/contributte/database)
 [![Code coverage](https://img.shields.io/coveralls/contributte/database.svg?style=flat-square)](https://coveralls.io/r/contributte/database)
 [![Licence](https://img.shields.io/packagist/l/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
-
 [![Downloads this Month](https://img.shields.io/packagist/dm/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
 [![Downloads total](https://img.shields.io/packagist/dt/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
 [![Latest stable](https://img.shields.io/packagist/v/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 
 ## Discussion / Help
 
@@ -26,6 +26,7 @@ composer require contributte/database
 
 | State       | Version | Branch   | PHP      |
 |-------------|---------|----------|----------|
+| stable      | `^0.2`  | `master` | `>= 7.1` |
 | stable      | `^0.1`  | `master` | `>= 5.6` |
 
 ## Overview
@@ -45,7 +46,7 @@ composer require contributte/database
         <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
       </td>
     </tr>
-  <tbody>
+  </tbody>
 </table>
 
 ---

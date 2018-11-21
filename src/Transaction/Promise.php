@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\Database\Transaction;
 
-use Exception;
+use Throwable;
 
 class Promise
 {
@@ -10,21 +10,12 @@ class Promise
 	/** @var Transaction */
 	private $transaction;
 
-	/**
-	 * @param Transaction $transaction
-	 */
 	public function __construct(Transaction $transaction)
 	{
 		$this->transaction = $transaction;
 	}
 
-	/**
-	 * @param callable $onFulfilled
-	 * @param callable|NULL $onCompleted
-	 * @param callable|NULL $onRejected
-	 * @return void
-	 */
-	public function then(callable $onFulfilled, callable $onCompleted = NULL, callable $onRejected = NULL)
+	public function then(callable $onFulfilled, ?callable $onCompleted = null, ?callable $onRejected = null): void
 	{
 		// Start transaction
 		$this->transaction->begin();
@@ -36,15 +27,15 @@ class Promise
 			// Commit transaction
 			$this->transaction->commit();
 
-			if ($onCompleted) {
+			if ($onCompleted !== null) {
 				// Fire onCompleted!
 				$onCompleted();
 			}
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			// Rollback transaction
 			$this->transaction->rollback();
 
-			if ($onRejected) {
+			if ($onRejected !== null) {
 				// Fire onRejected!
 				$onRejected($e);
 			}

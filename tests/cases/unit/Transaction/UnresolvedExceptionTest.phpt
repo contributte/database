@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Contributte\Database\Exception\UnresolvedException
@@ -14,18 +14,17 @@ use Tests\Helpers\BaseTestCase;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
-final class UnresolvedException extends BaseTestCase
+final class UnresolvedExceptionTest extends BaseTestCase
 {
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testThrows()
+	public function testThrows(): void
 	{
 		/** @var UnresolvedTransactionException $exception */
-		$exception = NULL;
-		$this->transaction->onUnresolved[] = function (UnresolvedTransactionException $e) use (&$exception) {
+		$exception = null;
+		$this->transaction->onUnresolved[] = function (UnresolvedTransactionException $e) use (&$exception): void {
 			$exception = $e;
 		};
 
@@ -34,12 +33,12 @@ final class UnresolvedException extends BaseTestCase
 		$this->table()->insert(['text' => time()]);
 
 		// Remove reference
-		$this->transaction = NULL;
+		$this->transaction = null;
 
-		Assert::notEqual(NULL, $exception);
+		Assert::notEqual(null, $exception);
 		Assert::type(UnresolvedTransactionException::class, $exception);
 	}
 
 }
 
-(new UnresolvedException())->run();
+(new UnresolvedExceptionTest())->run();

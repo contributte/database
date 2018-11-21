@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\Database\Transaction;
 
@@ -7,17 +7,15 @@ use Contributte\Database\Exception\UnresolvedTransactionException;
 use Exception;
 use Nette\Database\Connection;
 use PDO;
+use Throwable;
 
-/**
- * @author Milan Felix Sulc <sulcmil@gmail.com>
- */
 class Transaction
 {
 
-	/** @var array */
+	/** @var callable[] */
 	public $onUnresolved = [];
 
-	/** @var array */
+	/** @var string[] */
 	protected static $drivers = ['pgsql', 'mysql', 'mysqli', 'sqlite'];
 
 	/** @var int */
@@ -29,9 +27,6 @@ class Transaction
 	/** @var Connection */
 	protected $connection;
 
-	/**
-	 * @param Connection $connection
-	 */
 	public function __construct(Connection $connection)
 	{
 		$this->connection = $connection;
@@ -50,18 +45,12 @@ class Transaction
 		}
 	}
 
-	/**
-	 * @return bool
-	 */
-	protected function isSupported()
+	protected function isSupported(): bool
 	{
-		return in_array($this->connection->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME), self::$drivers);
+		return in_array($this->connection->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME), self::$drivers, true);
 	}
 
-	/**
-	 * @return Connection
-	 */
-	public function getConnection()
+	public function getConnection(): Connection
 	{
 		return $this->connection;
 	}
@@ -73,17 +62,15 @@ class Transaction
 	/**
 	 * Run transaction in function scope
 	 *
-	 * @param callable $callback
-	 * @return void
 	 * @throws Exception
 	 */
-	public function transaction(callable $callback)
+	public function transaction(callable $callback): void
 	{
 		$this->begin();
 		try {
 			$callback($this->connection);
 			$this->commit();
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			$this->rollback();
 			throw $e;
 		}
@@ -91,21 +78,17 @@ class Transaction
 
 	/**
 	 * @see self::transaction
-	 * @param callable $callback
-	 * @return void
 	 * @throws Exception
 	 */
-	public function t(callable $callback)
+	public function t(callable $callback): void
 	{
 		$this->transaction($callback);
 	}
 
 	/**
 	 * Begin transaction. Save current save point.
-	 *
-	 * @return void
 	 */
-	public function begin()
+	public function begin(): void
 	{
 		if (self::$level === 0 || !$this->isSupported()) {
 			$this->connection->beginTransaction();
@@ -119,10 +102,9 @@ class Transaction
 	/**
 	 * Commit transaction. Release current save point.
 	 *
-	 * @return void
 	 * @throws InvalidTransactionException
 	 */
-	public function commit()
+	public function commit(): void
 	{
 		if (self::$level === 0) {
 			throw new InvalidTransactionException('No transaction started');
@@ -140,10 +122,9 @@ class Transaction
 	/**
 	 * Rollback to savepoint.
 	 *
-	 * @return void
 	 * @throws InvalidTransactionException
 	 */
-	public function rollback()
+	public function rollback(): void
 	{
 		if (self::$level === 0) {
 			throw new InvalidTransactionException('No transaction started');
@@ -158,14 +139,7 @@ class Transaction
 		}
 	}
 
-	/**
-	 * FACTORY *****************************************************************
-	 */
-
-	/**
-	 * @return Promise
-	 */
-	public function promise()
+	public function promise(): Promise
 	{
 		return new Promise($this);
 	}
