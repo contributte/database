@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Contributte\Database\Transaction\Promise
@@ -18,15 +18,14 @@ final class PromiseTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testPromiseFulfilled()
+	public function testPromiseFulfilled(): void
 	{
-		$testPromiseFulfilled = NULL;
+		$testPromiseFulfilled = null;
 		$this->transaction->promise()->then(
-			function () use (&$fulfilled) {
+			function () use (&$fulfilled): void {
 				$this->table()->insert(['text' => time()]);
-				$fulfilled = TRUE;
+				$fulfilled = true;
 			}
 		);
 
@@ -35,20 +34,19 @@ final class PromiseTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testPromiseCompleted()
+	public function testPromiseCompleted(): void
 	{
-		$success = NULL;
+		$success = null;
 		$this->transaction->promise()->then(
-			function () {
+			function (): void {
 				$this->table()->insert(['text' => time()]);
 			},
-			function () use (&$success) {
-				$success = TRUE;
+			function () use (&$success): void {
+				$success = true;
 			},
-			function () use (&$success) {
-				$success = FALSE;
+			function () use (&$success): void {
+				$success = false;
 			}
 		);
 
@@ -57,20 +55,19 @@ final class PromiseTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testPromiseRejected()
+	public function testPromiseRejected(): void
 	{
-		$rejected = NULL;
+		$rejected = null;
 		$this->transaction->promise()->then(
-			function () {
+			function (): void {
 				$this->table()->insert([time() => time()]);
 			},
-			function () use (&$rejected) {
-				$rejected = TRUE;
+			function () use (&$rejected): void {
+				$rejected = true;
 			},
-			function () use (&$rejected) {
-				$rejected = FALSE;
+			function () use (&$rejected): void {
+				$rejected = false;
 			}
 		);
 

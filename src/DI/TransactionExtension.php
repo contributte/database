@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\Database\DI;
 
@@ -6,26 +6,21 @@ use Contributte\Database\Transaction\Transaction;
 use Nette\Database\Connection;
 use Nette\DI\CompilerExtension;
 
-/**
- * @author Milan Felix Sulc <sulcmil@gmail.com>
- */
 class TransactionExtension extends CompilerExtension
 {
 
 	/**
 	 * Decorate services
-	 *
-	 * @return void
 	 */
-	public function beforeCompile()
+	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
 
 		// If connection exists
-		if ($builder->getByType(Connection::class)) {
+		if ($builder->getByType(Connection::class) !== null) {
 			$builder->addDefinition($this->prefix('transaction'))
-				->setClass(Transaction::class);
-		};
+				->setFactory(Transaction::class);
+		}
 	}
 
 }

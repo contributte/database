@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Tests\Helpers;
 
@@ -21,10 +21,8 @@ abstract class BaseTestCase extends TestCase
 
 	/**
 	 * Called before test method
-	 *
-	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		Environment::lock('database', TMP_DIR);
 		$this->db = DatabaseFactory::create();
@@ -33,29 +31,20 @@ abstract class BaseTestCase extends TestCase
 
 	/**
 	 * Called after test method
-	 *
-	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->db->query('TRUNCATE TABLE `?`', new SqlLiteral('test'));
-		$this->transaction = NULL;
+		$this->transaction = null;
 	}
 
-	/**
-	 * @param int $count
-	 * @return void
-	 */
-	protected function validateCount($count)
+	protected function validateCount(int $count): void
 	{
 		$records = $this->table()->count('id');
 		Assert::equal($count, $records);
 	}
 
-	/**
-	 * @return Selection
-	 */
-	protected function table()
+	protected function table(): Selection
 	{
 		return $this->db->table('test');
 	}

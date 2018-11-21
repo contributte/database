@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Contributte\Database\Transaction\Transaction
@@ -20,9 +20,8 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testCommit()
+	public function testCommit(): void
 	{
 		$this->validateCount(0);
 
@@ -35,9 +34,8 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testRollback()
+	public function testRollback(): void
 	{
 		$this->validateCount(0);
 
@@ -52,33 +50,30 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testCommitWithoutBegin()
+	public function testCommitWithoutBegin(): void
 	{
-		Assert::exception(function () {
+		Assert::exception(function (): void {
 			$this->transaction->commit();
 		}, InvalidTransactionException::class);
 	}
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testRollbackWithoutBegin()
+	public function testRollbackWithoutBegin(): void
 	{
-		Assert::exception(function () {
+		Assert::exception(function (): void {
 			$this->transaction->rollback();
 		}, InvalidTransactionException::class);
 	}
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testDoubleCommit()
+	public function testDoubleCommit(): void
 	{
-		Assert::exception(function () {
+		Assert::exception(function (): void {
 			$this->transaction->begin();
 			$this->transaction->commit();
 			$this->transaction->commit();
@@ -87,11 +82,10 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testDoubleRollback()
+	public function testDoubleRollback(): void
 	{
-		Assert::exception(function () {
+		Assert::exception(function (): void {
 			$this->transaction->begin();
 			$this->transaction->rollback();
 			$this->transaction->rollback();
@@ -100,9 +94,8 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testNestedCommit()
+	public function testNestedCommit(): void
 	{
 		$this->transaction->begin();
 		$this->table()->insert(['text' => time()]);
@@ -116,9 +109,8 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testNestedCommitAndNestedRollback()
+	public function testNestedCommitAndNestedRollback(): void
 	{
 		$this->transaction->begin();
 		$this->table()->insert(['text' => 'a']);
@@ -137,9 +129,8 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testNestedCommitAndRollback()
+	public function testNestedCommitAndRollback(): void
 	{
 		$this->transaction->begin();
 		$this->table()->insert(['text' => 'a']);
@@ -157,11 +148,10 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testTransactional()
+	public function testTransactional(): void
 	{
-		$this->transaction->transaction(function () {
+		$this->transaction->transaction(function (): void {
 			$this->table()->insert(['text' => time()]);
 		});
 
@@ -170,11 +160,10 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testTransactionalAlias()
+	public function testTransactionalAlias(): void
 	{
-		$this->transaction->t(function () {
+		$this->transaction->t(function (): void {
 			$this->table()->insert(['text' => time()]);
 		});
 
@@ -183,12 +172,11 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testTransactionalFailed()
+	public function testTransactionalFailed(): void
 	{
-		Assert::exception(function () {
-			$this->transaction->transaction(function () {
+		Assert::exception(function (): void {
+			$this->transaction->transaction(function (): void {
 				$this->table()->insert([time() => time()]);
 			});
 		}, DriverException::class);
@@ -198,14 +186,13 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testNestedTransactional()
+	public function testNestedTransactional(): void
 	{
-		$this->transaction->transaction(function () {
+		$this->transaction->transaction(function (): void {
 			$this->table()->insert(['text' => time()]);
 
-			$this->transaction->transaction(function () {
+			$this->transaction->transaction(function (): void {
 				$this->table()->insert(['text' => time()]);
 			});
 		});
@@ -215,15 +202,14 @@ final class TransactionTest extends BaseTestCase
 
 	/**
 	 * @test
-	 * @return void
 	 */
-	public function testNestedTransactionalNestedFailed()
+	public function testNestedTransactionalNestedFailed(): void
 	{
-		$this->transaction->transaction(function () {
+		$this->transaction->transaction(function (): void {
 			$this->table()->insert(['text' => time()]);
 
-			Assert::exception(function () {
-				$this->transaction->transaction(function () {
+			Assert::exception(function (): void {
+				$this->transaction->transaction(function (): void {
 					$this->table()->insert([time() => time()]);
 				});
 			}, DriverException::class);

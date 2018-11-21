@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Tests\Helpers;
 
@@ -11,13 +11,10 @@ use Nette\Database\Structure;
 final class DatabaseFactory
 {
 
-	/**
-	 * @return Context
-	 */
-	public static function create()
+	public static function create(): Context
 	{
 		$cacheStorage = new DevNullStorage();
-		$connection = new Connection('mysql:host=127.0.0.1;dbname=mydb', 'root', NULL);
+		$connection = new Connection('mysql:host=127.0.0.1;dbname=mydb', 'root', null);
 		$structure = new Structure($connection, $cacheStorage);
 		$conventions = new DiscoveredConventions($structure);
 		$context = new Context($connection, $structure, $conventions, $cacheStorage);
