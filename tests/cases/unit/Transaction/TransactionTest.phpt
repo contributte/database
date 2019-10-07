@@ -177,7 +177,7 @@ final class TransactionTest extends BaseTestCase
 	{
 		Assert::exception(function (): void {
 			$this->transaction->transaction(function (): void {
-				$this->table()->insert([time() => time()]);
+				$this->table()->insert(['foo' => time()]);
 			});
 		}, DriverException::class);
 
@@ -210,7 +210,7 @@ final class TransactionTest extends BaseTestCase
 
 			Assert::exception(function (): void {
 				$this->transaction->transaction(function (): void {
-					$this->table()->insert([time() => time()]);
+					$this->table()->insert(['foo' => time()]);
 				});
 			}, DriverException::class);
 		});
