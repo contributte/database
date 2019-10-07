@@ -17,8 +17,8 @@
     }
   ],
   "require": {
-    "php": ">= 7.1",
-    "nette/database": "^3.0.2"
+    "php": "^7.2",
+    "nette/database": "~3.0.2"
   },
   "require-dev": {
     "ninjify/qa": "^0.10.0",
@@ -43,20 +43,8 @@
       "Tests\\Helpers\\": "tests/helpers"
     }
   },
-  "scripts": {
-    "qa": [
-      "linter src tests",
-      "codesniffer src tests"
-    ],
-    "tests": [
-      "tester -s -p php --colors 1 -C tests/cases"
-    ],
-    "coverage": [
-      "tester -s -p phpdbg --colors 1 -C --coverage ./coverage.xml --coverage-src ./src tests/cases"
-    ],
-    "phpstan": [
-      "phpstan analyse -l max -c phpstan.neon src"
-    ]
+  "config": {
+    "sort-packages": true
   },
   "extra": {
     "branch-alias": {
