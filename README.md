@@ -19,7 +19,7 @@
 ## Install
 
 ```
-composer require contributte/database
+$ composer require contributte/database
 ```
 
 ## Versions
