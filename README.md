@@ -18,8 +18,8 @@
 
 ## Install
 
-```
-$ composer require contributte/database
+```bash
+composer require contributte/database
 ```
 
 ## Versions
