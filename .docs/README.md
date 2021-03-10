@@ -26,9 +26,9 @@ Provides nested transaction via savepoints.
 
 As with any other extension, you need to register it.
 
-```yaml
+```neon
 extensions:
-    ntdb: Contributte\Database\DI\TransactionExtension
+	ntdb: Contributte\Database\DI\TransactionExtension
 ```
 
 That's all. You can now let `nette\di` autowire it to your services/presenters.
@@ -37,18 +37,18 @@ That's all. You can now let `nette\di` autowire it to your services/presenters.
 
 Register it as a service in your config file.
 
-```yaml
+```neon
 services:
-    - Contributte\Database\Transaction\Transaction
+	- Contributte\Database\Transaction\Transaction
 ```
 
 On multiple connections you have to specify which one to use.
 
-```yaml
+```neon
 services:
-    - Contributte\Database\Transaction\Transaction(@nette.database.one.connection)
-    # or
-    - Contributte\Database\Transaction\Transaction(@nette.database.two.connection)
+	- Contributte\Database\Transaction\Transaction(@nette.database.one.connection)
+	# or
+	- Contributte\Database\Transaction\Transaction(@nette.database.two.connection)
 ```
 
 ### API
@@ -88,10 +88,10 @@ $t = new Transaction(new Connection(...));
 
 $t->begin();
 try {
-    // some changes..
-    $t->commit();
+	// some changes..
+	$t->commit();
 } catch (Exception $e) {
-    $t->rollback();
+	$t->rollback();
 }
 ```
 
@@ -105,13 +105,13 @@ On success it commits changes, if an exception is thrown it rolls back changes.
 $t = new Transaction(new Connection(...));
 
 $t->transaction(function() {
-    // some changes..
+	// some changes..
 });
 
 // or alias
 
 $t->t(function() {
-    // some changes..
+	// some changes..
 });
 ```
 
@@ -123,15 +123,15 @@ Another approach to transactions.
 $t = new Transaction(new Connection(...));
 
 $t->promise()->then(
-    function() {
-        // Logic.. (save/update/remove some data)
-    }, 
-    function () {
-        // Success.. (after commit)
-    },
-    function() {
-        // Failed.. (after rollback)
-    }      
+	function() {
+		// Logic.. (save/update/remove some data)
+	},
+	function () {
+		// Success.. (after commit)
+	},
+	function() {
+		// Failed.. (after rollback)
+	}
 );
 ```
 
@@ -144,7 +144,7 @@ Idea by Ondrej Mirtes (https://ondrej.mirtes.cz/detekce-neuzavrenych-transakci).
 ```php
 $t = new Transaction(new Connection(...));
 $t->onUnresolved[] = function($exception) {
-    Tracy\Debugger::log($exception);
+Tracy\Debugger::log($exception);
 };
 ```
 
@@ -155,29 +155,29 @@ use Contributte\Database\Transaction\Transaction;
 
 class MyRepository {
 
-    function __construct(Connection $connection) {
-        $this->transaction = new Transaction($connection);
-    }
+	function __construct(Connection $connection) {
+		$this->transaction = new Transaction($connection);
+	}
 
-    // OR
+	// OR
 
-    function __construct(Context $context) {
-        $this->transaction = new Transaction($context->getConnection());
-    }
+	function __construct(Context $context) {
+		$this->transaction = new Transaction($context->getConnection());
+	}
 }
 
 class MyPresenter {
 
-    public function processSomething() {
-        $transaction->transaction(function() {
-            // Save one..
+	public function processSomething() {
+		$transaction->transaction(function() {
+			// Save one..
 
-            // Make other..
+			// Make other..
 
-            // Delete from this..
+			// Delete from this..
 
-            // Update everything..
-        });
-    }
+			// Update everything..
+		});
+	}
 }
 ```
