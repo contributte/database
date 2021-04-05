@@ -1,26 +1,34 @@
-# Contributte > Database
+![](https://heatbadger.now.sh/github/readme/contributte/database/)
 
-:sparkles: Extra contribution to [`nette/database`](https://github.com/nette/database).
+<p align=center>
+  <a href="https://github.com/contributte/database/actions"><img src="https://badgen.net/github/checks/contributte/database/master"></a>
+  <a href="https://coveralls.io/r/contributte/database"><img src="https://badgen.net/coveralls/c/github/contributte/database"></a>
+  <a href="https://packagist.org/packages/contributte/database"><img src="https://badgen.net/packagist/dm/contributte/database"></a>
+  <a href="https://packagist.org/packages/contributte/database"><img src="https://badgen.net/packagist/v/contributte/database"></a>
+</p>
+<p align=center>
+  <a href="https://packagist.org/packages/contributte/database"><img src="https://badgen.net/packagist/php/contributte/database"></a>
+  <a href="https://github.com/contributte/database"><img src="https://badgen.net/github/license/contributte/database"></a>
+  <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
+  <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
+  <a href="https://contributte.org/partners.html"><img src="https://badgen.net/badge/sponsor/donations/F96854"></a>
+</p>
 
------
+<p align=center>
+Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
+</p>
 
-[![Build Status](https://img.shields.io/travis/contributte/database.svg?style=flat-square)](https://travis-ci.org/contributte/database)
-[![Code coverage](https://img.shields.io/coveralls/contributte/database.svg?style=flat-square)](https://coveralls.io/r/contributte/database)
-[![Licence](https://img.shields.io/packagist/l/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
-[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
-[![Downloads total](https://img.shields.io/packagist/dt/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
-[![Latest stable](https://img.shields.io/packagist/v/contributte/database.svg?style=flat-square)](https://packagist.org/packages/contributte/database)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+## Usage
 
-## Discussion / Help
-
-[![Join the chat](https://img.shields.io/gitter/room/contributte/contributte.svg?style=flat-square)](http://bit.ly/ctteg)
-
-## Install
+To install the latest version of `contributte/database` use [Composer](https://getcomposer.org).
 
 ```bash
 composer require contributte/database
 ```
+
+## Documentation
+
+For details on how to use this package, check out our [documentation](.docs).
 
 ## Versions
 
@@ -30,26 +38,17 @@ composer require contributte/database
 | stable      | `^0.2`  | `master` | `>= 7.1` |
 | stable      | `^0.1`  | `master` | `>= 5.6` |
 
-## Overview
+## Development
 
-- [Transaction - nested transactions](https://github.com/contributte/database/blob/master/.docs/README.md#transaction)
+See [how to contribute](https://contributte.org/contributing.html) to this package.
 
-## Maintainers
+This package is currently maintaining by these authors.
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/f3l1x">
-            <img width="150" height="150" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=150">
-        </a>
-        </br>
-        <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<a href="https://github.com/f3l1x">
+  <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=80">
+</a>
 
----
+-----
 
-Thank you for testing, reporting and contributing.
+Consider to [support](https://contributte.org/partners.html) **contributte** development team.
+Also thank you for using this package.
