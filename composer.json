@@ -21,6 +21,7 @@
     "nette/database": "~3.0.2"
   },
   "require-dev": {
+    "nette/tester": "~2.3.2",
     "ninjify/qa": "^0.12.0",
     "ninjify/nunjuck": "^0.3.0",
     "nette/di": "^3.0.1",
