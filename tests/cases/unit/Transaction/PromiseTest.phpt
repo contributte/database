@@ -21,7 +21,6 @@ final class PromiseTest extends BaseTestCase
 	 */
 	public function testPromiseFulfilled(): void
 	{
-		$testPromiseFulfilled = null;
 		$this->transaction->promise()->then(
 			function () use (&$fulfilled): void {
 				$this->table()->insert(['text' => time()]);
