@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">7.2",
+    "php": ">=7.2",
     "nette/database": "~3.0.2"
   },
   "require-dev": {
