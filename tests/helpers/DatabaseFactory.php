@@ -17,19 +17,8 @@ final class DatabaseFactory
 		$connection = new Connection('mysql:host=127.0.0.1;dbname=mydb', 'root', null);
 		$structure = new Structure($connection, $cacheStorage);
 		$conventions = new DiscoveredConventions($structure);
-		$context = new Context($connection, $structure, $conventions, $cacheStorage);
 
-		/**
-		 * $connection->onQuery[] = function (Connection $connection, $result) {
-		 * if ($result instanceof ResultSet) {
-		 * //echo $result->getQueryString();
-		 * } else if ($result instanceof DriverException) {
-		 * //echo $result->getQueryString();
-		 * }
-		 * };
-		 */
-
-		return $context;
+		return new Context($connection, $structure, $conventions, $cacheStorage);
 	}
 
 }
