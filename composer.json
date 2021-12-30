@@ -22,13 +22,13 @@
   },
   "require-dev": {
     "nette/tester": "~2.3.2",
-    "ninjify/qa": "^0.12.0",
+    "ninjify/qa": "^0.13",
     "ninjify/nunjuck": "^0.3.0",
     "nette/di": "^3.0.1",
-    "phpstan/phpstan": "^0.12.0",
-    "phpstan/phpstan-deprecation-rules": "^0.12.0",
-    "phpstan/phpstan-nette": "^0.12.0",
-    "phpstan/phpstan-strict-rules": "^0.12.0"
+    "phpstan/phpstan": "^1.0.0",
+    "phpstan/phpstan-deprecation-rules": "^1.0.0",
+    "phpstan/phpstan-nette": "^1.0.0",
+    "phpstan/phpstan-strict-rules": "^1.0.0"
   },
   "suggest": {
     "nette/di": "to use TransactionExtesion [CompilerExtension]"
@@ -44,6 +44,8 @@
       "Tests\\Helpers\\": "tests/helpers"
     }
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "config": {
     "sort-packages": true
   },
