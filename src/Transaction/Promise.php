@@ -7,8 +7,7 @@ use Throwable;
 class Promise
 {
 
-	/** @var Transaction */
-	private $transaction;
+	private Transaction $transaction;
 
 	public function __construct(Transaction $transaction)
 	{

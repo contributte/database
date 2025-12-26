@@ -13,19 +13,16 @@ class Transaction
 {
 
 	/** @var callable[] */
-	public $onUnresolved = [];
+	public array $onUnresolved = [];
 
 	/** @var string[] */
-	protected static $drivers = ['pgsql', 'mysql', 'mysqli', 'sqlite'];
+	protected static array $drivers = ['pgsql', 'mysql', 'mysqli', 'sqlite'];
 
-	/** @var int */
-	protected static $level = 0;
+	protected static int $level = 0;
 
-	/** @var UnresolvedTransactionException */
-	protected $unresolved;
+	protected UnresolvedTransactionException $unresolved;
 
-	/** @var Connection */
-	protected $connection;
+	protected Connection $connection;
 
 	public function __construct(Connection $connection)
 	{
@@ -43,11 +40,6 @@ class Transaction
 				call_user_func_array($callback, [$this->unresolved]);
 			}
 		}
-	}
-
-	protected function isSupported(): bool
-	{
-		return in_array($this->connection->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME), self::$drivers, true);
 	}
 
 	public function getConnection(): Connection
@@ -72,6 +64,7 @@ class Transaction
 			$this->commit();
 		} catch (Throwable $e) {
 			$this->rollback();
+
 			throw $e;
 		}
 	}
@@ -142,6 +135,11 @@ class Transaction
 	public function promise(): Promise
 	{
 		return new Promise($this);
+	}
+
+	protected function isSupported(): bool
+	{
+		return in_array($this->connection->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME), self::$drivers, true);
 	}
 
 }

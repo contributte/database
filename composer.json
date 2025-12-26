@@ -17,21 +17,17 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
-    "nette/database": "^3.0.2"
+    "php": ">=8.2",
+    "nette/database": "^3.2"
   },
   "require-dev": {
-    "nette/tester": "~2.3.2",
-    "ninjify/qa": "^0.13",
-    "ninjify/nunjuck": "^0.3.0",
-    "nette/di": "^3.0.1",
-    "phpstan/phpstan": "^1.0.0",
-    "phpstan/phpstan-deprecation-rules": "^1.0.0",
-    "phpstan/phpstan-nette": "^1.0.0",
-    "phpstan/phpstan-strict-rules": "^1.0.0"
+    "contributte/phpstan": "^0.2.0",
+    "contributte/qa": "^0.4.0",
+    "contributte/tester": "^0.3.0",
+    "nette/di": "^3.2"
   },
   "suggest": {
-    "nette/di": "to use TransactionExtesion [CompilerExtension]"
+    "nette/di": "to use TransactionExtension [CompilerExtension]"
   },
   "autoload": {
     "psr-4": {
@@ -40,8 +36,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\Cases\\Unit\\": "tests/cases/unit",
-      "Tests\\Helpers\\": "tests/helpers"
+      "Tests\\": "tests"
     }
   },
   "minimum-stability": "dev",
@@ -54,7 +49,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.4.x-dev"
+      "dev-master": "0.5.x-dev"
     }
   }
 }

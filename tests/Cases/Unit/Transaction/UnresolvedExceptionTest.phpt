@@ -9,6 +9,7 @@
 namespace Tests\Cases\Unit\Transaction;
 
 use Contributte\Database\Exception\UnresolvedTransactionException;
+use stdClass;
 use Tester\Assert;
 use Tests\Helpers\BaseTestCase;
 
@@ -22,10 +23,11 @@ final class UnresolvedExceptionTest extends BaseTestCase
 	 */
 	public function testThrows(): void
 	{
-		/** @var UnresolvedTransactionException $exception */
-		$exception = null;
-		$this->transaction->onUnresolved[] = function (UnresolvedTransactionException $e) use (&$exception): void {
-			$exception = $e;
+		$context = new stdClass();
+		$context->exception = null;
+
+		$this->transaction->onUnresolved[] = function (UnresolvedTransactionException $e) use ($context): void {
+			$context->exception = $e;
 		};
 
 		// Begin transaction
@@ -35,8 +37,8 @@ final class UnresolvedExceptionTest extends BaseTestCase
 		// Remove reference
 		$this->transaction = null;
 
-		Assert::notEqual(null, $exception);
-		Assert::type(UnresolvedTransactionException::class, $exception);
+		Assert::notEqual(null, $context->exception);
+		Assert::type(UnresolvedTransactionException::class, $context->exception);
 	}
 
 }
