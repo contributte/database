@@ -1,0 +1,44 @@
+name: "Coverage"
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    name: "Code Coverage"
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: mydb
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: pdo, pdo_mysql
+          coverage: pcov
+
+      - run: composer update --no-interaction --no-progress
+
+      - run: mysql -h 127.0.0.1 -u root mydb < tests/Fixtures/database.sql
+
+      - run: make coverage
+
+      - uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml

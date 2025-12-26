@@ -8,6 +8,7 @@
 
 namespace Tests\Cases\Unit\Transaction;
 
+use stdClass;
 use Tester\Assert;
 use Tests\Helpers\BaseTestCase;
 
@@ -21,14 +22,17 @@ final class PromiseTest extends BaseTestCase
 	 */
 	public function testPromiseFulfilled(): void
 	{
+		$context = new stdClass();
+		$context->fulfilled = false;
+
 		$this->transaction->promise()->then(
-			function () use (&$fulfilled): void {
+			function () use ($context): void {
 				$this->table()->insert(['text' => time()]);
-				$fulfilled = true;
+				$context->fulfilled = true;
 			}
 		);
 
-		Assert::true($fulfilled);
+		Assert::true($context->fulfilled);
 	}
 
 	/**
@@ -36,20 +40,22 @@ final class PromiseTest extends BaseTestCase
 	 */
 	public function testPromiseCompleted(): void
 	{
-		$success = null;
+		$context = new stdClass();
+		$context->success = null;
+
 		$this->transaction->promise()->then(
 			function (): void {
 				$this->table()->insert(['text' => time()]);
 			},
-			function () use (&$success): void {
-				$success = true;
+			function () use ($context): void {
+				$context->success = true;
 			},
-			function () use (&$success): void {
-				$success = false;
+			function () use ($context): void {
+				$context->success = false;
 			}
 		);
 
-		Assert::true($success);
+		Assert::true($context->success);
 	}
 
 	/**
@@ -57,20 +63,22 @@ final class PromiseTest extends BaseTestCase
 	 */
 	public function testPromiseRejected(): void
 	{
-		$rejected = null;
+		$context = new stdClass();
+		$context->rejected = null;
+
 		$this->transaction->promise()->then(
 			function (): void {
 				$this->table()->insert([time() => time()]);
 			},
-			function () use (&$rejected): void {
-				$rejected = true;
+			function () use ($context): void {
+				$context->rejected = true;
 			},
-			function () use (&$rejected): void {
-				$rejected = false;
+			function () use ($context): void {
+				$context->rejected = false;
 			}
 		);
 
-		Assert::false($rejected);
+		Assert::false($context->rejected);
 	}
 
 }

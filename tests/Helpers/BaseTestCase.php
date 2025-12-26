@@ -13,11 +13,9 @@ use Tester\TestCase;
 abstract class BaseTestCase extends TestCase
 {
 
-	/** @var Context */
-	protected $db;
+	protected Context $db;
 
-	/** @var Transaction */
-	protected $transaction;
+	protected ?Transaction $transaction = null;
 
 	/**
 	 * Called before test method
