@@ -18,13 +18,13 @@
   ],
   "require": {
     "php": ">=8.2",
-    "nette/database": "^3.2"
+    "nette/database": "^3.2.0"
   },
   "require-dev": {
     "contributte/phpstan": "^0.2.0",
     "contributte/qa": "^0.4.0",
     "contributte/tester": "^0.3.0",
-    "nette/di": "^3.2"
+    "nette/di": "^3.2.0"
   },
   "suggest": {
     "nette/di": "to use TransactionExtension [CompilerExtension]"
