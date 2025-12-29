@@ -3,11 +3,11 @@
 namespace Tests\Helpers;
 
 use Contributte\Database\Transaction\Transaction;
+use Contributte\Tester\Environment;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
 use Nette\Database\Table\Selection;
 use Tester\Assert;
-use Tester\Environment;
 use Tester\TestCase;
 
 abstract class BaseTestCase extends TestCase
@@ -22,7 +22,7 @@ abstract class BaseTestCase extends TestCase
 	 */
 	protected function setUp(): void
 	{
-		Environment::lock('database', TMP_DIR);
+		\Tester\Environment::lock('database', Environment::getTestDir());
 		$this->db = DatabaseFactory::create();
 		$this->transaction = new Transaction($this->db->getConnection());
 	}
